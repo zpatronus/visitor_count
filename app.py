@@ -1,7 +1,9 @@
 from flask import Flask, abort
+from flask_cors import CORS
 import sqlite3
 
 app = Flask(__name__)
+CORS(app)
 
 def init_db():
     """Initialize the database if it doesn't exist."""
