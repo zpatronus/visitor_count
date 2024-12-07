@@ -3,7 +3,9 @@ from flask_cors import CORS
 import sqlite3
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 def init_db():
     """Initialize the database if it doesn't exist."""
@@ -19,6 +21,7 @@ def init_db():
     )
     conn.commit()
     conn.close()
+
 
 @app.route("/visitor_count/<string:website_name>/", methods=["GET"])
 def visitor_count(website_name):
@@ -36,11 +39,15 @@ def visitor_count(website_name):
 
     # Increment the count
     new_count = result[0] + 1
-    cursor.execute("UPDATE websites SET count = ? WHERE name = ?", (new_count, website_name))
+    cursor.execute(
+        "UPDATE websites SET count = ? WHERE name = ?",
+        (new_count, website_name),
+    )
     conn.commit()
     conn.close()
 
     return str(new_count)
+
 
 if __name__ == "__main__":
     init_db()
