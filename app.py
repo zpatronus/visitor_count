@@ -13,8 +13,7 @@ CORS(
                 "http://localhost:19399",
                 "https://zijuny.dev",
                 "https://zjyang.dev",
-                r"https://*.zijuny.dev",
-                r"https://*.zjyang.dev",
+                "https://goa.zijuny.dev",
             ]
         }
     },
