@@ -4,7 +4,21 @@ import sqlite3
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(
+    app,
+    supports_credentials=True,
+    resources={
+        r"/*": {
+            "origins": [
+                "http://localhost:19399",
+                "https://zijuny.dev",
+                "https://zjyang.dev",
+                r"https://*.zijuny.dev",
+                r"https://*.zjyang.dev",
+            ]
+        }
+    },
+)
 
 
 def init_db():
