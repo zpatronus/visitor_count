@@ -1,4 +1,4 @@
-from flask import Flask, abort
+from flask import Flask, abort, request
 from flask_cors import CORS
 import sqlite3
 
@@ -39,7 +39,7 @@ def init_db():
 
 @app.route("/visitor_count/<string:website_name>/", methods=["GET"])
 def visitor_count(website_name):
-    """Increase the visitor count for a specific website."""
+    """Get or increase the visitor count for a specific website."""
     conn = sqlite3.connect("visitor_count.db")
     cursor = conn.cursor()
 
@@ -50,6 +50,11 @@ def visitor_count(website_name):
     if result is None:
         conn.close()
         abort(404, description="Website not found")
+
+    # If 'inspectonly' argument is present, return the current count
+    if "inspectonly" in request.args:
+        conn.close()
+        return str(result[0])
 
     # Increment the count
     new_count = result[0] + 1
