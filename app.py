@@ -14,6 +14,7 @@ CORS(
                 "https://zijuny.dev",
                 "https://zjyang.dev",
                 "https://goa.zijuny.dev",
+                "https://ekatheria.me",
             ]
         }
     },
