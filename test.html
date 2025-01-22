@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visitor Count</title>
+</head>
+
+<body>
+  <div id="visitor-count">Loading...</div>
+
+  <script>
+    // Fetch visitor count and set it to the div's content
+    async function updateVisitorCount () {
+      try {
+        const response = await fetch('https://zjyang.dev/visitor_count/ekatheria/');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const count = await response.text();
+        document.getElementById('visitor-count').textContent = count;
+      } catch (error) {
+        console.error('Error fetching visitor count:', error);
+        document.getElementById('visitor-count').textContent = 'Error loading visitor count.';
+      }
+    }
+
+    // Call the function on page load
+    window.onload = updateVisitorCount;
+  </script>
+</body>
+
+</html>
